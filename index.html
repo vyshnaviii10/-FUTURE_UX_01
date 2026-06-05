@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Dental Care | High-Conversion Local Practice Website</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --success: #16a34a;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+
+        /* --- GLOBAL RESETS --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Lexend', sans-serif;
+            color: var(--secondary);
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img, svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* --- REUSABLE UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* --- BUTTONS SYSTEM --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--bg-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-light);
+            color: var(--secondary);
+            border-color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* --- NAVIGATION HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-family: 'Lexend', sans-serif;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .phone-link {
+            font-weight: 600;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 80px 0 120px 0;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 580px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .hero-trust-row {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 32px;
+        }
+
+        .trust-metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Styled Placeholder Graphic Asset */
+        .hero-graphic-container {
+            position: relative;
+        }
+
+        .hero-card-asset {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid #e2e8f0;
+        }
+
+        .asset-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .avatar-placeholder {
+            width: 56px;
+            height: 56px;
+            background: #e0f2fe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .asset-line {
+            height: 12px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        /* --- SERVICES SECTION --- */
+        .services {
+            background-color: var(--bg-white);
+        }
+
+        .section-intro {
+            max-width: 640px;
+            margin: 0 auto 64px auto;
+        }
+
+        .section-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-intro p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .service-card {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            background: var(--bg-white);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: #e0f2fe;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 28px;
+        }
+
+        .service-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 14px;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* --- SOCIAL PROOF & TESTIMONIALS --- */
+        .testimonials {
+            background-color: var(--bg-light);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .review-card {
+            background: var(--bg-white);
+            padding: 32px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+        }
+
+        .star-rating {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+        }
+
+        .review-text {
+            color: var(--text-main);
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-initial {
+            width: 40px;
+            height: 40px;
+            background: #f1f5f9;
+            color: var(--secondary);
+            font-weight: 600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--secondary);
+        }
+
+        /* --- CONVERSION APPOINTMENT & CONTACT SECTION --- */
+        .booking-section {
+            background-color: var(--bg-white);
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .contact-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-details > p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            background: #f0f9ff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .info-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .info-text p {
+            color: var(--text-light);
+        }
+
+        /* Interactive Lead Capture Form Component */
+        .form-wrapper {
+            background: var(--bg-white);
+            padding: 48px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-wrapper h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .form-wrapper > p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--secondary);
+            transition: var(--transition);
+            background-color: var(--bg-white);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--secondary);
+            color: #94a3b8;
+            padding: 64px 0;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(2, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h3 {
+            color: var(--bg-white);
+            margin-bottom: 16px;
+        }
+
+        .footer-links h4 {
+            color: var(--bg-white);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul a:hover {
+            color: var(--bg-white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        /* --- STICKY MOBILE CONVERSION BAR --- */
+        .mobile-sticky-action {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            padding: 12px 24px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            z-index: 999;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS ENGINE --- */
+        @media (max-width: 1024px) {
+            .hero-grid, .booking-grid {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.75rem;
+            }
+
+            .hero-graphic-container {
+                max-width: 500px;
+                margin: 0 auto;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Controlled via mobile drawer if desired */
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-trust-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .section-padding {
+                padding: 70px 0;
+            }
+
+            .form-wrapper {
+                padding: 32px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .mobile-sticky-action {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 72px; /* Prevent navigation occlusion */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                ApexDental
+            </a>
+            <nav class="nav-menu">
+                <a href="#services" class="nav-link">Treatments</a>
+                <a href="#reviews" class="nav-link">Patient Reviews</a>
+                <a href="#book" class="nav-link">Our Practice</a>
+                <div class="nav-cta-group">
+                    <a href="tel:5550192834" class="phone-link">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        (555) 019-2834
+                    </a>
+                    <a href="#book" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Book Online</a>
+                </div>
+            </nav>
+            <button class="menu-toggle" onclick="document.getElementById('book').scrollIntoView();" aria-label="Menu Open">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1>Gentle, Comprehensive Dental Care For Your Family</h1>
+                <p>Achieve optimal oral health through pain-free treatments managed by top-rated medical specialists. Accepting new patients and emergency cases today.</p>
+                <div class="hero-actions">
+                    <a href="#book" class="btn btn-primary">Schedule Appointment Online</a>
+                    <a href="#services" class="btn btn-secondary">Explore Treatments</a>
+                </div>
+                <div class="hero-trust-row">
+                    <div class="trust-metric">
+                        <span class="metric-value">4.9 ★</span>
+                        <span class="metric-label">1,400+ Verified Reviews</span>
+                    </div>
+                    <div class="trust-metric">
+                        <span class="metric-value">Same-Day</span>
+                        <span class="metric-label">Emergency Relief Slots</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-graphic-container">
+                <div class="hero-card-asset">
+                    <div class="asset-header">
+                        <div class="avatar-placeholder">🩺</div>
+                        <div>
+                            <h4 style="font-size:1.1rem">Dr. Sarah Jenkins, DDS</h4>
+                            <p style="font-size:0.85rem; color:var(--text-light)">Lead Clinic Director</p>
+                        </div>
+                    </div>
+                    <div class="asset-line" style="width: 85%"></div>
+                    <div class="asset-line" style="width: 95%"></div>
+                    <div class="asset-line" style="width: 60%"></div>
+                    <div style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 600; color: var(--success); display: flex; align-items: center; gap: 4px;">
+                            ● Next available slot: Today
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services section-padding">
+        <div class="container">
+            <div class="section-intro text-center">
+                <h2>Clinical Services Ecosystem</h2>
+                <p>Engineered to deliver predictable, stress-free clinical outcomes using state-of-the-art diagnostics and patient comfort systems.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon-box">🛡️</div>
+                    <h3>Preventative Dentistry</h3>
+                    <p>Routine diagnostic scaling, deep cleaning sweeps, advanced digital X-ray scans, and early-stage cavity detection processing.</p>
+                    <a href="#book" class="card-link">Schedule Checkup →</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-box">💎</div>
+                    <h3>Cosmetic Restoration</h3>
+                    <p>Advanced porcelain veneer structuring, medical-grade enamel whitening systems, and permanent aesthetic transformations.</p>
+                    <a href="#book" class="card-link">Request Consultation →</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-box">⚡</div>
+                    <h3>Emergency Surgery</h3>
+                    <p>Immediate, same-day stabilization procedures for root canal pain, fractured structures, or severe physical oral injuries.</p>
+                    <a href="#book" class="card-link">Get Urgent Care →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="testimonials section-padding">
+        <div class="container">
+            <div class="section-intro text-center">
+                <h2>Real Outcomes From Real Patients</h2>
+                <p>Read transparent feedback workflows pulled straight from our automated third-party platform collection tools.</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="star-rating">★★★★★</div>
+                    <p class="review-text">"I have always suffered from intense dental anxiety. The team here went completely out of their way to make sure I was comfortable throughout the entire root canal process."</p>
+                    <div class="author-info">
+                        <div class="author-initial">MA</div>
+                        <span class="author-name">Marcus Aurelius</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="star-rating">★★★★★</div>
+                    <p class="review-text">"The modern infrastructure and lack of paper-based waiting times makes booking appointments an absolute breeze. Very clean workspace and friendly medical staff!"</p>
+                    <div class="author-info">
+                        <div class="author-initial">EL</div>
+                        <span class="author-name">Emily Lindon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="book" class="booking-section section-padding">
+        <div class="container booking-grid">
+            <div class="contact-details">
+                <h2>Begin Your Patient Journey Today</h2>
+                <p>Our centralized coordination desk is always standing by. Drop your target operational preferences into the interactive scheduler tool to lock down an optimal treatment room window.</p>
+                
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h4>Clinic Headquarters Location</h4>
+                        <p>123 Medical Center Way, Suite 400, Metropolis, NY 10001</p>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">⏰</div>
+                    <div class="info-text">
+                        <h4>Operational Working Hours</h4>
+                        <p>Mon - Fri: 8:00 AM – 6:00 PM | Sat: 9:00 AM – 2:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-wrapper">
+                <h3>Request Appointment Slot</h3>
+                <p>No immediate payment needed. Our medical team will verify details within 60 minutes.</p>
+                
+                <form id="leadCaptureForm" onsubmit="event.preventDefault(); handleFormConversion();">
+                    <div class="form-group">
+                        <label class="form-label" for="clientName">Full Name</label>
+                        <input class="form-input" type="text" id="clientName" placeholder="Alexander Wright" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="clientPhone">Mobile Phone Number</label>
+                        <input class="form-input" type="tel" id="clientPhone" placeholder="(555) 123-4567" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="selectedService">Clinical Concern Type</label>
+                        <select class="form-input" id="selectedService">
+                            <option value="preventative">Routine Screening & Cleaning</option>
+                            <option value="cosmetic">Cosmetic / Structural Restoration</option>
+                            <option value="emergency">Emergency Dental Trauma Treatment</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 8px;">Confirm Slot Reservation Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>ApexDental</h3>
+                <p>Building high-converting patient care workflows designed to make exceptional clinical standards accessible locally across the state.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Treatments</h4>
+                <ul>
+                    <li><a href="#services">General Checkups</a></li>
+                    <li><a href="#services">Teeth Whitening</a></li>
+                    <li><a href="#services">Root Canals</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Practice Info</h4>
+                <ul>
+                    <li><a href="#reviews">Patient Reviews</a></li>
+                    <li><a href="#book">Contact Desk</a></li>
+                    <li><a href="#">Privacy Framework</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Apex Dental Care Inc. All global rights reserved across architectural assets.</p>
+            <p>Designed for Future Interns UX Portfolio Sandbox.</p>
+        </div>
+    </footer>
+
+    <div class="mobile-sticky-action">
+        <a href="#book" class="btn btn-primary" style="width: 100%; padding: 12px;">⚡ Instant Booking Reservation</a>
+    </div>
+
+    <script>
+        function handleFormConversion() {
+            const nameField = document.getElementById('clientName').value;
+            const selectValue = document.getElementById('selectedService').value;
+            
+            alert(`Thank you, ${nameField}! Your consultation request for "${selectValue}" has been successfully logged. Our scheduling coordinators will call you shortly.`);
+            document.getElementById('leadCaptureForm').reset();
+        }
+    </script>
+</body>
+</html>
